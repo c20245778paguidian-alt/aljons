@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.11",
+    "@astrojs/vercel": "^11.0.22",
     "astro": "^7.3.6",
+    "resend": "^6.40.1",
     "sharp": "^0.35.3"
   }
 }

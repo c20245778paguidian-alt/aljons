@@ -1,5 +1,3 @@
-gsap.registerPlugin(ScrollTrigger);
-
 const leafContainer = document.getElementById("falling-leaves");
 const leafColors = ["#ef4444", "#facc15", "#fb923c", "#22c55e", "#3b82f6"];
 
@@ -24,67 +22,79 @@ if (leafContainer && !window.matchMedia("(prefers-reduced-motion: reduce)").matc
   }
 }
 
-const tl = gsap.timeline({ defaults: { duration: 0.1, ease: "power2.out" } });
-tl.from("h1", {
-  x: -200,
-  duration: 1.5,
-  opacity: 0,
-  ease: "back.out(1.7)"
-}).from("nav *", {
-  y: -20,
-  opacity: 0,
-  stagger: 0.15,
-  ease: "power2.out"
-}, "-=0.3");
-
-document.getElementById("Replay").addEventListener("click", () => tl.restart());
-
 const toggleButton = document.getElementById("Toggle");
 let rotationAngle = 0;
-toggleButton.addEventListener("click", () => {
-  document.documentElement.classList.toggle("dark");
-  rotationAngle += 360;
-  gsap.to(toggleButton, {
-    rotation: rotationAngle,
-    duration: 0.6,
-    ease: "back.out(1.7)"
-  });
-});
+if (toggleButton) {
+  toggleButton.addEventListener("click", () => {
+    document.documentElement.classList.toggle("dark");
+    rotationAngle += 360;
 
-gsap.utils.toArray(".reveal").forEach((section) => {
-  gsap.from(section, {
-    y: 50,
+    if (window.gsap) {
+      window.gsap.to(toggleButton, {
+        rotation: rotationAngle,
+        duration: 0.6,
+        ease: "back.out(1.7)"
+      });
+    }
+  });
+}
+
+if (window.gsap && window.ScrollTrigger) {
+  window.gsap.registerPlugin(window.ScrollTrigger);
+
+  const timeline = window.gsap.timeline({ defaults: { duration: 0.1, ease: "power2.out" } });
+  timeline.from("h1", {
+    x: -200,
+    duration: 1.5,
     opacity: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: section,
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    }
-  });
-});
+    ease: "back.out(1.7)"
+  }).from("nav *", {
+    y: -20,
+    opacity: 0,
+    stagger: 0.15,
+    ease: "power2.out"
+  }, "-=0.3");
 
-gsap.fromTo("#progressBar",
-  { scaleX: 0 },
-  {
-    scaleX: 1,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "body",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true
-    }
+  const replayButton = document.getElementById("Replay");
+  if (replayButton) {
+    replayButton.addEventListener("click", () => timeline.restart());
   }
-);
 
-document.getElementById("contact-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-});
+  window.gsap.utils.toArray(".reveal").forEach((section) => {
+    window.gsap.from(section, {
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  });
+
+  if (document.getElementById("progressBar")) {
+    window.gsap.fromTo("#progressBar",
+      { scaleX: 0 },
+      {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true
+        }
+      }
+    );
+  }
+}
 
 (() => {
   const canvas = document.getElementById("physics-canvas");
+  if (!canvas) return;
+
   const context = canvas.getContext("2d");
   const countLabel = document.getElementById("ball-count");
   const statusLabel = document.getElementById("physics-status");
@@ -93,6 +103,20 @@ document.getElementById("contact-form").addEventListener("submit", (event) => {
   const resetButton = document.getElementById("physics-reset");
   const gravityControl = document.getElementById("gravity-control");
   const gravityValue = document.getElementById("gravity-value");
+  if (
+    !context ||
+    !countLabel ||
+    !statusLabel ||
+    !pauseButton ||
+    !addButton ||
+    !resetButton ||
+    !gravityControl ||
+    !gravityValue
+  ) {
+    console.error("The physics playground is missing required elements.");
+    return;
+  }
+
   const colors = ["#ef4444", "#facc15", "#3b82f6", "#22c55e", "#a855f7"];
   const maxBalls = 1000;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

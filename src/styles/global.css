@@ -2,6 +2,30 @@ html {
   scroll-behavior: smooth;
 }
 
+.site-background {
+  min-height: 100vh;
+  background-color: #020617;
+  background-image:
+    linear-gradient(rgba(2, 6, 23, 0.66), rgba(2, 6, 23, 0.78)),
+    url("/images/aljon-background.png");
+  background-position: center 38%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+html:not(.dark) .site-background {
+  background-image:
+    linear-gradient(rgba(248, 250, 252, 0.5), rgba(248, 250, 252, 0.62)),
+    url("/images/aljon-background.png");
+}
+
+@media (max-width: 640px) {
+  .site-background {
+    background-attachment: scroll;
+  }
+}
+
 .btn-primary,
 .btn-secondary,
 .btn-accent {
@@ -119,4 +143,12 @@ html.dark .falling-leaf::after {
   .falling-leaf {
     display: none;
   }
+}
+.honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
