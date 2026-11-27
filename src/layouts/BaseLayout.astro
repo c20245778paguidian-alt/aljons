@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import FallingLeaves from '../components/FallingLeaves.astro';
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio and services of Aljon Paguidian" />
+    <title>Aljon Paguidian | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <style is:inline type="text/tailwindcss">
+      @custom-variant dark (&:where(.dark, .dark *));
+
+      @layer components {
+        .btn-primary {
+          @apply px-6 py-3 bg-red-600 text-white font-black uppercase tracking-wider border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:bg-red-600 dark:text-white dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)];
+        }
+
+        .btn-secondary {
+          @apply px-6 py-3 bg-yellow-400 text-black font-black uppercase tracking-wider border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)];
+        }
+
+        .btn-accent {
+          @apply px-6 py-3 bg-white text-black font-black uppercase tracking-wider border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:bg-slate-900 dark:text-white dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)];
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen text-black bg-[repeating-linear-gradient(-45deg,#ef4444,#ef4444_25px,#facc15_25px,#facc15_50px)] dark:bg-[repeating-linear-gradient(-45deg,#020617,#020617_25px,#0f172a_25px,#0f172a_50px)] dark:text-white font-sans">
+    <div id="progressBar" class="fixed top-0 left-0 z-50 h-1 w-full origin-left bg-pink-500"></div>
+    <FallingLeaves />
+    <slot />
+    <script is:inline src="/animation.js"></script>
+  </body>
+</html>

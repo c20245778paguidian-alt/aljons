@@ -1,0 +1,122 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-accent {
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-width: 4px;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: white;
+  background: #dc2626;
+  border-color: #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.btn-secondary {
+  color: #000;
+  background: #facc15;
+  border-color: #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.btn-accent {
+  color: #000;
+  background: #fff;
+  border-color: #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+html.dark .btn-primary,
+html.dark .btn-secondary,
+html.dark .btn-accent {
+  border-color: #fff;
+  box-shadow: 4px 4px 0 #fff;
+}
+
+html.dark .btn-accent {
+  color: #fff;
+  background: #0f172a;
+}
+
+.falling-leaves {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.falling-leaf {
+  --leaf-size: 18px;
+  --leaf-color: #ef4444;
+  position: absolute;
+  top: -60px;
+  left: var(--leaf-left);
+  width: var(--leaf-size);
+  height: calc(var(--leaf-size) * 0.65);
+  border: 2px solid #000;
+  border-radius: 90% 12% 90% 12%;
+  background: var(--leaf-color);
+  opacity: var(--leaf-opacity);
+  transform: rotate(var(--leaf-rotation));
+  animation: leaf-fall var(--leaf-duration) linear var(--leaf-delay) infinite;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.falling-leaf::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  left: 20%;
+  top: 48%;
+  background: #000;
+  transform: rotate(-35deg);
+  transform-origin: center;
+}
+
+@keyframes leaf-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(var(--leaf-rotation));
+  }
+
+  25% {
+    transform: translate3d(var(--leaf-sway-a), 25vh, 0) rotate(100deg);
+  }
+
+  55% {
+    transform: translate3d(var(--leaf-sway-b), 55vh, 0) rotate(220deg);
+  }
+
+  80% {
+    transform: translate3d(var(--leaf-sway-a), 82vh, 0) rotate(330deg);
+  }
+
+  100% {
+    transform: translate3d(var(--leaf-sway-b), 110vh, 0) rotate(390deg);
+  }
+}
+
+html.dark .falling-leaf {
+  border-color: #fff;
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.25);
+}
+
+html.dark .falling-leaf::after {
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling-leaf {
+    display: none;
+  }
+}

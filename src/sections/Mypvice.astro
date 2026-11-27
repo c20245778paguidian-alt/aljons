@@ -1,0 +1,28 @@
+<section id="physics" class="max-w-6xl mx-auto px-6 mb-12">
+  <div class="bg-white dark:bg-slate-900 border-4 border-black dark:border-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-5">
+      <div>
+        <p class="font-black text-xs uppercase tracking-widest text-red-600 dark:text-yellow-400">Interactive experiment</p>
+        <h2 class="text-3xl font-black uppercase tracking-tight">2D Physics Playground</h2>
+        <p class="font-bold text-sm mt-1">Tap or click inside the box to drop a ball. Watch them bounce and collide.</p>
+      </div>
+      <p class="font-black uppercase text-sm" aria-live="polite">Balls: <span id="ball-count">0</span></p>
+    </div>
+
+    <canvas id="physics-canvas" class="block w-full h-72 sm:h-96 border-4 border-black dark:border-white bg-slate-100 dark:bg-slate-800 touch-none cursor-crosshair"
+      aria-label="Interactive 2D physics simulation. Click or tap to add a bouncing ball." tabindex="0"></canvas>
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mt-5">
+      <div class="flex flex-wrap gap-3">
+        <button id="physics-toggle" class="btn-primary" type="button" aria-pressed="false">Pause</button>
+        <button id="physics-add" class="btn-secondary" type="button">Drop a ball</button>
+        <button id="physics-reset" class="btn-accent" type="button">Reset</button>
+      </div>
+      <label for="gravity-control" class="flex-1 font-black text-xs uppercase tracking-wider">
+        Gravity <span id="gravity-value">0.65</span>
+        <input id="gravity-control" class="block w-full mt-2 accent-red-600" type="range" min="0" max="1.4" step="0.05" value="0.65" />
+      </label>
+    </div>
+    <p id="physics-status" class="sr-only" aria-live="polite"></p>
+  </div>
+</section>
